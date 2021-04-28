@@ -1,0 +1,66 @@
+﻿############### USEFUL LINKS ############### 
+
+Visual Studio 2019 (Needed to run Intel oneAPI C and fortran)
+https://visualstudio.microsoft.com/downloads/                 
+
+Register Basic Intel Account
+https://www.intel.com/content/www/us/en/forms/basic-intel-registration.html
+
+Intel® oneAPI Base Toolkit
+https://software.intel.com/content/www/us/en/develop/tools/oneapi/base-toolkit/download.html#gs.yytywu
+recommended installation
+It might get stuck at 86% or 89% or so, (Distribution for Python) just wait
+Location: C:\Program Files (x86)\Intel\oneAPI
+
+Intel® oneAPI HPC Toolkit
+https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit/download.html#gs.yytx73
+Select the option: recommended installation
+
+
+
+############### PREPARE ABQUS TO RUN FORTRAN ############### 
+
+Go to>  C:\SIMULIA\EstProducts\2020\win_b64\SMA\site
+You will find 
+custom_v6.env    in that  last line make academic=RESEARCH   if academic=TEACHING (edit by opening in text file)
+abaqus_v6.env    add the line:  compile_fortran += ['/names:lowercase',] at every end of the file
+
+Go to> C:\SIMULIA\Commands
+You will find
+abq2020
+
+******** inside aba2020
+@echo off
+setlocal
+set ABA_COMMAND=%~nx0
+set ABA_COMMAND_FULL=%~f0
+"C:\SIMULIA\EstProducts\2020\win_b64\code\bin\ABQLauncher.exe" %*
+endlocal
+********
+
+Add the paths
+for ifort  C:\Program Files (x86)\Intel\oneAPI\compiler\2021.2.0\windows\bin\intel64
+for vars   C:\Program Files (x86)\Intel\oneAPI\compiler\2021.2.0\env
+for another vars C:\Program Files (x86)\Intel\oneAPI\mkl\2021.2.0\env
+
+
+Make them
+
+SET PATH=%PATH%;C:\Program Files (x86)\Intel\oneAPI\compiler\2021.2.0\windows\bin\intel64;
+call "C:\Program Files (x86)\Intel\oneAPI\compiler\2021.2.0\env\vars.bat" -arch intel64
+call "C:\Program Files (x86)\Intel\oneAPI\mkl\2021.2.0\env\vars.bat" intel64
+
+Add after setloac (2nd line) of abq2020 file
+
+
+DONE!
+
+
+############### REMERKS ############### 
+
+Runs in windows 10 pro, Windows 10 education
+
+Works if Abaqus is already installed
+
+Probably it will work with even less components in Visual studio and Intel Api
+Component installed.
